@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fritas Express - Cardápio Digital</title>
+    <style>
+        :root {
+            --vermelho: #cc0000;
+            --amarelo: #ffcc00;
+            --escuro: #222;
+            --claro: #f9f9f9;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--claro); color: var(--escuro); padding-bottom: 80px; }
+        header { background-color: var(--vermelho); color: white; text-align: center; padding: 25px 15px; border-bottom: 5px solid var(--amarelo); }
+        header h1 { font-size: 26px; text-transform: uppercase; letter-spacing: 1px; }
+        header p { font-size: 14px; color: var(--amarelo); margin-top: 5px; font-weight: bold; }
+        .container { max-width: 500px; margin: 0 auto; padding: 15px; }
+        .section-title { font-size: 18px; color: var(--vermelho); margin: 20px 0 10px 0; border-left: 4px solid var(--vermelho); padding-left: 8px; text-transform: uppercase; }
+        .card { background: white; box-shadow: 0 1px 10px 10px rgba(0,0,0,0.05); border-radius: 8px; padding: 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .card-info h3 { font-size: 16px; margin-bottom: 4px; }
+        .card-info p { font-size: 14px; color: #666; }
+        .price { color: var(--vermelho); font-weight: bold; font-size: 15px; margin-top: 4px; }
+        .qty-selector { display: flex; align-items: center; gap: 12px; }
+        .qty-btn { background-color: var(--amarelo); border: none; width: 30px; height: 30px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .qty-btn:active { background-color: #e6b800; }
+        .qty-val { font-weight: bold; font-size: 16px; min-width: 15px; text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px; color: #444; }
+        .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+        .form-group textarea { resize: none; height: 60px; }
+        .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -3px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: 0 auto; }
+        .total-box { font-size: 14px; font-weight: bold; }
+        .total-box span { display: block; font-size: 20px; color: var(--vermelho); }
+        .order-btn { background-color: #25d366; color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        .order-btn:hover { background-color: #1ebea5; }
+    </style>
+</head>
+<body>
+
+    <header style="display: flex; align-items: center; justify-content: flex-start; gap: 16px;">
+        <img src="imagens/FritasExpress.png" alt="Logo Fritas Express" style="height: 56px; width: 56px; object-fit: contain; background: white; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);" />
+        <div>
+            <h1 style="margin-bottom: 2px;">Fritas Express</h1>
+            <p>Salgados Feitos na Hora com Sabor e Carinho! </p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="section-title">Salgadinhos Fritos</div>
+        <!-- 100 Salgadinhos -->
+        <div class="card" data-name="100 Salgadinhos (Cento)" data-price="29.99">
+            <!-- <img src="imagens/1 cardapio.jpeg" alt="100 Salgadinhos" class="produto-img" /> -->
+            <div class="card-info">
+                <h3>100 Salgadinhos (Cento)</h3>
+                <p>Fritos na hora, crocantes e deliciosos.</p>
+                <div class="price">R$ 29,99</div>
+            </div>
+            <div class="qty-selector">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <span class="qty-val">0</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+        <!-- 50 Salgadinhos -->
+        <div class="card" data-name="50 Salgadinhos" data-price="14.99">
+            <!-- <img src="imagens/1 cardapio.jpeg" alt="50 Salgadinhos" class="produto-img" /> -->
+            <div class="card-info">
+                <h3>50 Salgadinhos</h3>
+                <p>A porção ideal para seu lanche.</p>
+                <div class="price">R$ 14,99</div>
+            </div>
+            <div class="qty-selector">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <span class="qty-val">0</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+        <!-- 40 Salgadinhos -->
+        <div class="card" data-name="40 Salgadinhos" data-price="13.99">
+            <!-- <img src="imagens/1 cardapio.jpeg" alt="40 Salgadinhos" class="produto-img" /> -->
+            <div class="card-info">
+                <h3>40 Salgadinhos</h3>
+                <p>Ideal para pequenas reuniões ou lanche rápido.</p>
+                <div class="price">R$ 13,99</div>
+            </div>
+            <div class="qty-selector">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <span class="qty-val">0</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+         <!-- Pasteis-->
+        <div class="section-title">Pasteis</div>
+        <div class="card" data-name="queijo" data-price="07.00">
+            <!-- <img src="imagens/2 cardapio.jpeg" alt="queijo" class="produto-img" />-->
+            <div class="card-info"> 
+                <h3>Queijo</h3>
+                <p>Tamanho único.</p>
+                <div class="price">R$ 07,00</div>
+            </div>
+            <div class="qty-selector">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <span class="qty-val">0</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+
+                <div class="card" data-name="frango" data-price="07.00">
+            <!-- <img src="imagens/2 cardapio.jpeg" alt="frango" class="produto-img" />-->
+            <div class="card-info"> 
+                <h3>frango</h3>
+                <p>Tamanho único.</p>
+                <div class="price">R$ 07,00</div>
+            </div>
+            <div class="qty-selector">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <span class="qty-val">0</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+            </div>
+
+                <div class="card" data-name="calabresa" data-price="07.00">
+            <!-- <img src="imagens/2 cardapio.jpeg" alt="calabresa" class="produto-img" /> -->
+            <div class="card-info">
+                <h3>calabresa</h3>
+                <p>Tamanho único.</p>
+                <div class="price">R$ 07,00</div>
+            </div>
+            <div class="qty-selector">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <span class="qty-val">0</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+
+                <div class="card" data-name="carne" data-price="08.00">
+            <!-- <img src="imagens/2 cardapio.jpeg" alt="carne" class="produto-img" /> -->
+            <div class="card-info">
+                <h3>carne</h3>
+                <p>Tamanho único.</p>
+                <div class="price">R$ 08,00</div>
+            </div>
+            <div class="qty-selector">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <span class="qty-val">0</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+
+                <div class="card" data-name="misto" data-price="08.00">
+            <!-- <img src="imagens/2 cardapio.jpeg" alt="misto" class="produto-img" /> -->
+            <div class="card-info">
+                <h3>misto</h3>
+                <p>Tamanho único.</p>
+                <div class="price">R$ 08,00</div>
+            </div>
+            <div class="qty-selector">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <span class="qty-val">0</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+
+                <div class="card" data-name="Frango com queijo" data-price="09.00">
+            <!-- <img src="imagens/2 cardapio.jpeg" alt="frango com queijo" class="produto-img" /> -->
+            <div class="card-info">
+                <h3>frango com queijo</h3>
+                <p>Tamanho único.</p>
+                <div class="price">R$ 09,00</div>
+            </div>
+            <div class="qty-selector">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <span class="qty-val">0</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+
+                <div class="card" data-name="carne com calabresa" data-price="09.00">
+            <!-- <img src="imagens/2 cardapio.jpeg" alt="carne com calabresa" class="produto-img" /> -->
+            <div class="card-info">
+                <h3>carne com calabresa</h3>
+                <p>Tamanho único.</p>
+                <div class="price">R$ 09,00</div>
+            </div>
+            <div class="qty-selector">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <span class="qty-val">0</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+
+                <div class="card" data-name="frango com calabresa" data-price="09.00">
+            <!-- <img src="imagens/2 cardapio.jpeg" alt="frango com calabresa" class="produto-img" /> -->
+            <div class="card-info">
+                <h3>frango com calabresa</h3>
+                <p>Tamanho único.</p>
+                <div class="price">R$ 09,00</div>
+            </div>
+            <div class="qty-selector">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <span class="qty-val">0</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+
+                <div class="card" data-name="mistão" data-price="10.00">
+            <div class="card-info">
+                <h3>Mistão</h3>
+                <p>Tamanho único.</p>
+                <div class="price">R$ 10,00</div>
+            </div>
+            <div class="qty-selector">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <span class="qty-val">0</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+
+
+        <div class="section-title">Combos Especiais</div>
+        <!-- Combo Express -->
+        <div class="card" data-name="Combo Express (25 Canudinhos + 25 Salgadinhos + Suco)" data-price="25.00">
+            <img src="imagens/4 cardapio.jpeg" alt="Combo Express" class="produto-img" />
+            <div class="card-info">
+                <h3>Combo Express</h3>
+                <p>25 Canudinhos + 25 Salgadinhos + Copo 300ml</p>
+                <div class="price">R$ 25,00</div>
+            </div>
+            <div class="qty-selector">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <span class="qty-val">0</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+
+        <!-- Combo 50 Salgadinhos + 2 Copos Suco -->
+        <div class="card" data-name="Combo 50 Salgadinhos + 2 Copos Suco" data-price="20.00">
+            <img src="imagens/promo3.jpeg" alt="Combo 50 Salgadinhos" class="produto-img" />
+            <div class="card-info">
+                <h3>Combo Promocional 50</h3>
+                <p>50 Salgadinhos + 2 Copos de 300ml</p>
+                <div class="price">R$ 20,00</div>
+            </div>
+            <div class="qty-selector">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <span class="qty-val">0</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+       <h2>Galeria de Cardápio e Promoções</h2>
+        <div class = "galeria-promos">
+            <div class="galeria-promos-title">Cardápio & Promoções</div>
+            <div class="galeria-promos-grid">
+                <img src="imagens/1 cardapio.jpeg" alt="Cardápio 1" class="galeria-promos-img" />
+                <img src="imagens/2 cardapio.jpeg" alt="Cardápio 2" class="galeria-promos-img" />
+                <img src="imagens/4 cardapio.jpeg" alt="Combo Express" class="galeria-promos-img" />
+                <img src="imagens/promo1.jpeg" alt="Promoção 50 Salgadinhos" class="galeria-promos-img" />
+                <img src="imagens/promo2.jpeg" alt="Promoção 100 Salgadinhos" class="galeria-promos-img" />
+                <img src="imagens/promo3.jpeg" alt="Promoção 40 Salgadinhos" class="galeria-promos-img" />
+            </div>
+        </div>
+        <div class="section-title">Dados de Entrega</div>
+        <div class="form-group">
+            <label for="cliente-nome">Seu Nome *</label>
+            <input type="text" id="cliente-nome" placeholder="Digite seu nome completo">
+        </div>
+        <div class="form-group">
+            <label for="cliente-endereco">Endereço Completo (Violete/Croatá) *</label>
+            <textarea id="cliente-endereco" placeholder="Rua, número e pontos de referência"></textarea>
+        </div>
+    </div>
+
+    <div class="footer-bar">
+        <div class="total-box">
+            Total do Pedido:
+            <span id="total-render">R$ 0,00</span>
+        </div>
+        <button class="order-btn" onclick="enviarPedido()">Enviar via WhatsApp</button>
+    </div>
+
+    <style>
+        .produto-img {
+            height: 192px;
+            width: 192px;
+            object-fit: cover;
+            border-radius: 18px;
+            margin-right: 18px;
+            flex-shrink: 0;
+        }
+        @media (max-width: 600px) {
+            .produto-img {
+                height: 144px !important;
+                width: 144px !important;
+            }
+        }
+        .card {
+            gap: 10px;
+            transition: box-shadow 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+        .card:hover {
+            box-shadow: 0 6px 18px rgba(0,0,0,0.13);
+            transform: translateY(-2px) scale(1.02);
+        }
+        .order-btn {
+            transition: background 0.2s, transform 0.2s;
+        }
+        .order-btn:hover {
+            background-color: #128c7e;
+            transform: scale(1.04);
+        }
+        .galeria-promos {
+            margin: 32px auto 0 auto;
+            max-width: 500px;
+        }
+        .galeria-promos-title {
+            font-size: 18px;
+            color: var(--vermelho);
+            margin-bottom: 12px;
+            text-align: left;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .galeria-promos-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+        }
+        .galeria-promos-img {
+            width: 220px;
+            max-width: 90vw;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            transition: box-shadow 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+        .galeria-promos-img:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+            transform: scale(1.04);
+        }
+
+    </style>
+    <script>
+        function changeQty(btn, change) {
+            const qtySpan = btn.parentElement.querySelector('.qty-val');
+            let currentQty = parseInt(qtySpan.innerText);
+            currentQty += change;
+            if (currentQty < 0) currentQty = 0;
+            qtySpan.innerText = currentQty;
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            let total = 0;
+            document.querySelectorAll('.card').forEach(card => {
+                const price = parseFloat(card.getAttribute('data-price'));
+                const qty = parseInt(card.querySelector('.qty-val').innerText);
+                total += price * qty;
+            });
+            document.getElementById('total-render').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            return total;
+        }
+
+        function enviarPedido() {
+            const nome = document.getElementById('cliente-nome').value.trim();
+            const endereco = document.getElementById('cliente-endereco').value.trim();
+            
+            if (!nome || !endereco) {
+                alert('Por favor, preencha seu nome e endereço de entrega.');
+                return;
+            }
+
+            let itensTexto = '';
+            let total = calculateTotal();
+
+            document.querySelectorAll('.card').forEach(card => {
+                const qty = parseInt(card.querySelector('.qty-val').innerText);
+                if (qty > 0) {
+                    const name = card.getAttribute('data-name');
+                    itensTexto += `• ${qty}x ${name}\n`;
+                }
+            });
+
+            if (itensTexto === '') {
+                alert('Selecione pelo menos um item para fazer o pedido.');
+                return;
+            }
+
+            const numeroWhatsApp = '558591432781'; 
+            const mensagem = `*Novo Pedido - Fritas Express* 🍟\n\n` +
+                             `*Cliente:* ${nome}\n` +
+                             `*Endereço:* ${endereco}\n\n` +
+                             `*Itens do Pedido:*\n${itensTexto}\n` +
+                             `*Total:* R$ ${total.toFixed(2).replace('.', ',')}\n\n` +
+                             `_Por favor, envie a chave Pix para pagamento!_`;
+
+            const url = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
