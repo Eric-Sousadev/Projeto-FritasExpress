@@ -30,7 +30,7 @@
         .form-group label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px; color: #444; }
         .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
         .form-group textarea { resize: none; height: 60px; }
-        .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -3px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: 0 auto; }
+        .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -3px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: 0 auto; z-index: 1000; }
         .total-box { font-size: 14px; font-weight: bold; }
         .total-box span { display: block; font-size: 20px; color: var(--vermelho); }
         .order-btn { background-color: #25d366; color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; }
@@ -39,245 +39,340 @@
 </head>
 <body>
 
-    <header style="display: flex; align-items: center; justify-content: flex-start; gap: 16px;">
-        <img src="imagens/FritasExpress.png" alt="Logo Fritas Express" style="height: 56px; width: 56px; object-fit: contain; background: white; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);" />
+    <header style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 12px; padding: 30px 15px;">
+        <img src="imagens/FritasExpress.png" alt="Logo Fritas Express" style="height: 80px; width: 80px; object-fit: contain; background: white; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 3px solid var(--amarelo);" />
         <div>
-            <h1 style="margin-bottom: 2px;">Fritas Express</h1>
-            <p>Salgados Feitos na Hora com Sabor e Carinho! </p>
+            <h1 style="font-size: 32px; letter-spacing: 1.5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Fritas Express</h1>
+            <p style="font-size: 15px; color: var(--amarelo); margin-top: 6px; font-weight: bold;">Salgados Feitos na Hora com Sabor e Carinho! 🍟</p>
         </div>
     </header>
 
     <div class="container">
-        <div class="section-title">Salgadinhos Fritos</div>
-        <!-- 100 Salgadinhos -->
-        <div class="card" data-name="100 Salgadinhos (Cento)" data-price="29.99">
-            <!-- <img src="imagens/1 cardapio.jpeg" alt="100 Salgadinhos" class="produto-img" /> -->
-            <div class="card-info">
-                <h3>100 Salgadinhos (Cento)</h3>
-                <p>Fritos na hora, crocantes e deliciosos.</p>
-                <div class="price">R$ 29,99</div>
-            </div>
-            <div class="qty-selector">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <span class="qty-val">0</span>
-                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-            </div>
+        <!-- Abas de Categorias -->
+        <div class="category-tabs" id="category-tabs">
+            <button class="tab-btn active" data-target="tab-salgados">
+                <span>Salgados</span>
+            </button>
+            <button class="tab-btn" data-target="tab-pasteis">
+                <span>Pastéis</span>
+            </button>
+            <button class="tab-btn" data-target="tab-combos">
+                <span>Combos</span>
+            </button>
         </div>
-        <!-- 50 Salgadinhos -->
-        <div class="card" data-name="50 Salgadinhos" data-price="14.99">
-            <!-- <img src="imagens/1 cardapio.jpeg" alt="50 Salgadinhos" class="produto-img" /> -->
-            <div class="card-info">
-                <h3>50 Salgadinhos</h3>
-                <p>A porção ideal para seu lanche.</p>
-                <div class="price">R$ 14,99</div>
+
+        <!-- Conteúdo: Salgadinhos -->
+        <div class="tab-content active" id="tab-salgados">
+            <div class="section-title">Salgadinhos Fritos</div>
+            <!-- 100 Salgadinhos -->
+            <div class="card" data-name="100 Salgadinhos (Cento)" data-price="29.99">
+                <!-- <img src="imagens/1 cardapio.jpeg" alt="100 Salgadinhos" class="produto-img" /> -->
+                <div class="card-info">
+                    <h3>100 Salgadinhos (Cento)</h3>
+                    <p>Fritos na hora, crocantes e deliciosos.</p>
+                    <div class="price">R$ 29,99</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
             </div>
-            <div class="qty-selector">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <span class="qty-val">0</span>
-                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            <!-- 50 Salgadinhos -->
+            <div class="card" data-name="50 Salgadinhos" data-price="14.99">
+                <!-- <img src="imagens/1 cardapio.jpeg" alt="50 Salgadinhos" class="produto-img" /> -->
+                <div class="card-info">
+                    <h3>50 Salgadinhos</h3>
+                    <p>A porção ideal para seu lanche.</p>
+                    <div class="price">R$ 14,99</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
             </div>
-        </div>
-        <!-- 40 Salgadinhos -->
-        <div class="card" data-name="40 Salgadinhos" data-price="13.99">
-            <!-- <img src="imagens/1 cardapio.jpeg" alt="40 Salgadinhos" class="produto-img" /> -->
-            <div class="card-info">
-                <h3>40 Salgadinhos</h3>
-                <p>Ideal para pequenas reuniões ou lanche rápido.</p>
-                <div class="price">R$ 13,99</div>
-            </div>
-            <div class="qty-selector">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <span class="qty-val">0</span>
-                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-            </div>
-        </div>
-         <!-- Pasteis-->
-        <div class="section-title">Pasteis</div>
-        <div class="card" data-name="queijo" data-price="07.00">
-            <!-- <img src="imagens/2 cardapio.jpeg" alt="queijo" class="produto-img" />-->
-            <div class="card-info"> 
-                <h3>Queijo</h3>
-                <p>Tamanho único.</p>
-                <div class="price">R$ 07,00</div>
-            </div>
-            <div class="qty-selector">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <span class="qty-val">0</span>
-                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            <!-- 40 Salgadinhos -->
+            <div class="card" data-name="40 Salgadinhos" data-price="13.99">
+                <!-- <img src="imagens/1 cardapio.jpeg" alt="40 Salgadinhos" class="produto-img" /> -->
+                <div class="card-info">
+                    <h3>40 Salgadinhos</h3>
+                    <p>Ideal para pequenas reuniões ou lanche rápido.</p>
+                    <div class="price">R$ 13,99</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
             </div>
         </div>
 
-                <div class="card" data-name="frango" data-price="07.00">
-            <!-- <img src="imagens/2 cardapio.jpeg" alt="frango" class="produto-img" />-->
-            <div class="card-info"> 
-                <h3>frango</h3>
-                <p>Tamanho único.</p>
-                <div class="price">R$ 07,00</div>
-            </div>
-            <div class="qty-selector">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <span class="qty-val">0</span>
-                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-            </div>
+        <!-- Conteúdo: Pasteis -->
+        <div class="tab-content" id="tab-pasteis">
+            <div class="section-title">Pasteis</div>
+            <div class="card" data-name="queijo" data-price="07.00">
+                <!-- <img src="imagens/2 cardapio.jpeg" alt="queijo" class="produto-img" />-->
+                <div class="card-info"> 
+                    <h3>Queijo</h3>
+                    <p>Tamanho único.</p>
+                    <div class="price">R$ 07,00</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
             </div>
 
-                <div class="card" data-name="calabresa" data-price="07.00">
-            <!-- <img src="imagens/2 cardapio.jpeg" alt="calabresa" class="produto-img" /> -->
-            <div class="card-info">
-                <h3>calabresa</h3>
-                <p>Tamanho único.</p>
-                <div class="price">R$ 07,00</div>
+            <div class="card" data-name="frango" data-price="07.00">
+                <!-- <img src="imagens/2 cardapio.jpeg" alt="frango" class="produto-img" />-->
+                <div class="card-info"> 
+                    <h3>frango</h3>
+                    <p>Tamanho único.</p>
+                    <div class="price">R$ 07,00</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
             </div>
-            <div class="qty-selector">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <span class="qty-val">0</span>
-                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+
+            <div class="card" data-name="calabresa" data-price="07.00">
+                <!-- <img src="imagens/2 cardapio.jpeg" alt="calabresa" class="produto-img" /> -->
+                <div class="card-info">
+                    <h3>calabresa</h3>
+                    <p>Tamanho único.</p>
+                    <div class="price">R$ 07,00</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+
+            <div class="card" data-name="carne" data-price="08.00">
+                <!-- <img src="imagens/2 cardapio.jpeg" alt="carne" class="produto-img" /> -->
+                <div class="card-info">
+                    <h3>carne</h3>
+                    <p>Tamanho único.</p>
+                    <div class="price">R$ 08,00</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+
+            <div class="card" data-name="misto" data-price="08.00">
+                <!-- <img src="imagens/2 cardapio.jpeg" alt="misto" class="produto-img" /> -->
+                <div class="card-info">
+                    <h3>misto</h3>
+                    <p>Tamanho único.</p>
+                    <div class="price">R$ 08,00</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+
+            <div class="card" data-name="Frango com queijo" data-price="09.00">
+                <!-- <img src="imagens/2 cardapio.jpeg" alt="frango com queijo" class="produto-img" /> -->
+                <div class="card-info">
+                    <h3>frango com queijo</h3>
+                    <p>Tamanho único.</p>
+                    <div class="price">R$ 09,00</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+
+            <div class="card" data-name="carne com calabresa" data-price="09.00">
+                <!-- <img src="imagens/2 cardapio.jpeg" alt="carne com calabresa" class="produto-img" /> -->
+                <div class="card-info">
+                    <h3>carne com calabresa</h3>
+                    <p>Tamanho único.</p>
+                    <div class="price">R$ 09,00</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+
+            <div class="card" data-name="frango com calabresa" data-price="09.00">
+                <!-- <img src="imagens/2 cardapio.jpeg" alt="frango com calabresa" class="produto-img" /> -->
+                <div class="card-info">
+                    <h3>frango com calabresa</h3>
+                    <p>Tamanho único.</p>
+                    <div class="price">R$ 09,00</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+
+            <div class="card" data-name="mistão" data-price="10.00">
+                <div class="card-info">
+                    <h3>Mistão</h3>
+                    <p>Tamanho único.</p>
+                    <div class="price">R$ 10,00</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
             </div>
         </div>
 
-                <div class="card" data-name="carne" data-price="08.00">
-            <!-- <img src="imagens/2 cardapio.jpeg" alt="carne" class="produto-img" /> -->
-            <div class="card-info">
-                <h3>carne</h3>
-                <p>Tamanho único.</p>
-                <div class="price">R$ 08,00</div>
+        <!-- Conteúdo: Combos -->
+        <div class="tab-content" id="tab-combos">
+            <div class="section-title">Combos Especiais</div>
+            <!-- Combo Express -->
+            <div class="card" id="combo-express" data-name="Combo Express (25 Canudinhos + 25 Salgadinhos + Suco)" data-price="25.00">
+                <img src="imagens/4 cardapio.jpeg" alt="Combo Express" class="produto-img" />
+                <div class="card-info">
+                    <h3>Combo Express</h3>
+                    <p>25 Canudinhos + 25 Salgadinhos + Copo 300ml</p>
+                    <div class="price">R$ 25,00</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
             </div>
-            <div class="qty-selector">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <span class="qty-val">0</span>
-                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-            </div>
-        </div>
 
-                <div class="card" data-name="misto" data-price="08.00">
-            <!-- <img src="imagens/2 cardapio.jpeg" alt="misto" class="produto-img" /> -->
-            <div class="card-info">
-                <h3>misto</h3>
-                <p>Tamanho único.</p>
-                <div class="price">R$ 08,00</div>
+            <!-- Combo 50 Salgadinhos + 2 Copos Suco -->
+            <div class="card" id="combo-promocional50" data-name="Combo 50 Salgadinhos + 2 Copos Suco" data-price="20.00">
+                <img src="imagens/promo3.jpeg" alt="Combo 50 Salgadinhos" class="produto-img" />
+                <div class="card-info">
+                    <h3>Combo Promocional 50</h3>
+                    <p>50 Salgadinhos + 2 Copos de 300ml</p>
+                    <div class="price">R$ 20,00</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
             </div>
-            <div class="qty-selector">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <span class="qty-val">0</span>
-                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-            </div>
-        </div>
 
-                <div class="card" data-name="Frango com queijo" data-price="09.00">
-            <!-- <img src="imagens/2 cardapio.jpeg" alt="frango com queijo" class="produto-img" /> -->
-            <div class="card-info">
-                <h3>frango com queijo</h3>
-                <p>Tamanho único.</p>
-                <div class="price">R$ 09,00</div>
+            <!-- 1 Cento de Canudinhos -->
+            <div class="card" id="combo-canudinhos" data-name="1 Cento de Canudinhos" data-price="39.99">
+                <img src="imagens/promo1.jpeg" alt="1 Cento de Canudinhos" class="produto-img" />
+                <div class="card-info">
+                    <h3>1 Cento de Canudinhos</h3>
+                    <p>100 canudinhos</p>
+                    <div class="price">R$ 39,99</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
             </div>
-            <div class="qty-selector">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <span class="qty-val">0</span>
-                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-            </div>
-        </div>
 
-                <div class="card" data-name="carne com calabresa" data-price="09.00">
-            <!-- <img src="imagens/2 cardapio.jpeg" alt="carne com calabresa" class="produto-img" /> -->
-            <div class="card-info">
-                <h3>carne com calabresa</h3>
-                <p>Tamanho único.</p>
-                <div class="price">R$ 09,00</div>
-            </div>
-            <div class="qty-selector">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <span class="qty-val">0</span>
-                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-            </div>
-        </div>
-
-                <div class="card" data-name="frango com calabresa" data-price="09.00">
-            <!-- <img src="imagens/2 cardapio.jpeg" alt="frango com calabresa" class="produto-img" /> -->
-            <div class="card-info">
-                <h3>frango com calabresa</h3>
-                <p>Tamanho único.</p>
-                <div class="price">R$ 09,00</div>
-            </div>
-            <div class="qty-selector">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <span class="qty-val">0</span>
-                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-            </div>
-        </div>
-
-                <div class="card" data-name="mistão" data-price="10.00">
-            <div class="card-info">
-                <h3>Mistão</h3>
-                <p>Tamanho único.</p>
-                <div class="price">R$ 10,00</div>
-            </div>
-            <div class="qty-selector">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <span class="qty-val">0</span>
-                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-            </div>
-        </div>
-
-
-        <div class="section-title">Combos Especiais</div>
-        <!-- Combo Express -->
-        <div class="card" data-name="Combo Express (25 Canudinhos + 25 Salgadinhos + Suco)" data-price="25.00">
-            <img src="imagens/4 cardapio.jpeg" alt="Combo Express" class="produto-img" />
-            <div class="card-info">
-                <h3>Combo Express</h3>
-                <p>25 Canudinhos + 25 Salgadinhos + Copo 300ml</p>
-                <div class="price">R$ 25,00</div>
-            </div>
-            <div class="qty-selector">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <span class="qty-val">0</span>
-                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-            </div>
-        </div>
-
-        <!-- Combo 50 Salgadinhos + 2 Copos Suco -->
-        <div class="card" data-name="Combo 50 Salgadinhos + 2 Copos Suco" data-price="20.00">
-            <img src="imagens/promo3.jpeg" alt="Combo 50 Salgadinhos" class="produto-img" />
-            <div class="card-info">
-                <h3>Combo Promocional 50</h3>
-                <p>50 Salgadinhos + 2 Copos de 300ml</p>
-                <div class="price">R$ 20,00</div>
-            </div>
-            <div class="qty-selector">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <span class="qty-val">0</span>
-                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            <!-- 1 Cento de Salgadinhos -->
+            <div class="card" id="combo-salgadinhos" data-name="1 Cento de Salgadinhos" data-price="30.00">
+                <img src="imagens/promo2.jpeg" alt="1 Cento de Salgadinhos" class="produto-img" />
+                <div class="card-info">
+                    <h3>1 Cento de Salgadinhos</h3>
+                    <p>100 salgadinhos</p>
+                    <div class="price">R$ 30,00</div>
+                </div>
+                <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <span class="qty-val">0</span>
+                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
             </div>
         </div>
        <h2>Galeria de Cardápio e Promoções</h2>
-        <div class = "galeria-promos">
-            <div class="galeria-promos-title">Cardápio & Promoções</div>
-            <div class="galeria-promos-grid">
-                <img src="imagens/1 cardapio.jpeg" alt="Cardápio 1" class="galeria-promos-img" />
-                <img src="imagens/2 cardapio.jpeg" alt="Cardápio 2" class="galeria-promos-img" />
-                <img src="imagens/4 cardapio.jpeg" alt="Combo Express" class="galeria-promos-img" />
-                <img src="imagens/promo1.jpeg" alt="Promoção 50 Salgadinhos" class="galeria-promos-img" />
-                <img src="imagens/promo2.jpeg" alt="Promoção 100 Salgadinhos" class="galeria-promos-img" />
-                <img src="imagens/promo3.jpeg" alt="Promoção 40 Salgadinhos" class="galeria-promos-img" />
-            </div>
-        </div>
-        <div class="section-title">Dados de Entrega</div>
-        <div class="form-group">
-            <label for="cliente-nome">Seu Nome *</label>
-            <input type="text" id="cliente-nome" placeholder="Digite seu nome completo">
-        </div>
-        <div class="form-group">
-            <label for="cliente-endereco">Endereço Completo (Violete/Croatá) *</label>
-            <textarea id="cliente-endereco" placeholder="Rua, número e pontos de referência"></textarea>
-        </div>
-    </div>
+         <div class="galeria-promos">
+             <div class="galeria-promos-title">Cardápio & Promoções</div>
+             <div class="galeria-promos-wrapper">
+                 <button class="nav-btn prev-btn" id="galeria-prev-btn" aria-label="Anterior">
+                     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                 </button>
+                 <div class="galeria-promos-grid" id="galeria-grid">
+                     <img src="imagens/4 cardapio.jpeg" alt="Combo Express" class="galeria-promos-img" data-target-id="combo-express" />
+                     <img src="imagens/promo1.jpeg" alt="Promoção 50 Salgadinhos" class="galeria-promos-img" data-target-id="combo-canudinhos" />
+                     <img src="imagens/promo2.jpeg" alt="Promoção 100 Salgadinhos" class="galeria-promos-img" data-target-id="combo-salgadinhos" />
+                     <img src="imagens/promo3.jpeg" alt="Promoção 40 Salgadinhos" class="galeria-promos-img" data-target-id="combo-promocional50" />
+                 </div>
+                 <button class="nav-btn next-btn" id="galeria-next-btn" aria-label="Próximo">
+                     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                 </button>
+             </div>
+             <div class="galeria-dots" id="galeria-dots">
+                 <span class="dot active" data-index="0"></span>
+                 <span class="dot" data-index="1"></span>
+                 <span class="dot" data-index="2"></span>
+                 <span class="dot" data-index="3"></span>
+             </div>
+         </div>
+      </div> <!-- Fechamento da div .container -->
 
     <div class="footer-bar">
         <div class="total-box">
             Total do Pedido:
             <span id="total-render">R$ 0,00</span>
         </div>
-        <button class="order-btn" onclick="enviarPedido()">Enviar via WhatsApp</button>
+        <button class="order-btn" onclick="toggleCarrinho(true)">Ver Carrinho</button>
+    </div>
+
+    <!-- Modal do Carrinho de Compras -->
+    <div id="carrinho-modal" class="carrinho-modal">
+        <div class="carrinho-header">
+            <button class="back-btn" onclick="toggleCarrinho(false)" aria-label="Voltar para o cardápio">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                <span>Voltar</span>
+            </button>
+            <h2>Meu Carrinho</h2>
+        </div>
+        <div class="carrinho-body">
+            <div class="carrinho-summary-card">
+                <h3>Resumo do Pedido</h3>
+                <div id="carrinho-itens-lista" class="carrinho-itens-lista">
+                    <!-- Conteúdo dinâmico preenchido por JS -->
+                </div>
+                <div class="carrinho-total-row">
+                    <span>Total do Pedido:</span>
+                    <span id="carrinho-total-val">R$ 0,00</span>
+                </div>
+            </div>
+            
+            <div class="carrinho-form-card">
+                <h3>Dados de Entrega</h3>
+                <div class="form-group">
+                    <label for="cliente-nome">Seu Nome *</label>
+                    <input type="text" id="cliente-nome" placeholder="Digite seu nome completo">
+                </div>
+                <div class="form-group">
+                    <label for="cliente-endereco">Endereço Completo (Violete/Croatá) *</label>
+                    <textarea id="cliente-endereco" placeholder="Rua, número e pontos de referência"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="carrinho-footer">
+            <button class="whatsapp-send-btn" onclick="enviarPedido()">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.09-2.798c1.649.979 3.06 1.488 4.795 1.49 5.568.002 10.093-4.52 10.097-10.086.002-2.697-1.045-5.234-2.95-7.14-1.905-1.905-4.437-2.953-7.136-2.955-5.576 0-10.107 4.524-10.111 10.093-.002 1.83.507 3.29 1.464 4.887l-.993 3.626 3.834-.993zm12.302-6.52c-.33-.165-1.951-.963-2.253-1.073-.303-.11-.522-.165-.742.165-.22.33-.852 1.073-1.044 1.293-.193.22-.385.247-.715.082-1.393-.698-2.42-1.222-3.376-2.868-.25-.43.25-.399.715-1.32.083-.165.042-.31-.02-.442-.063-.13-.522-1.26-.715-1.725-.187-.45-.378-.39-.522-.397-.13-.007-.28-.008-.43-.008-.15 0-.395.056-.6.28-.206.225-.788.77-.788 1.876s.803 2.17 1.103 2.585c.3.415 1.583 2.417 3.834 3.39.535.23 1.01.378 1.36.49.54.17 1.03.146 1.42.088.43-.064 1.95-.797 2.227-1.567.276-.77.276-1.43.193-1.566-.083-.136-.303-.22-.633-.385z"/></svg>
+                <span>Confirmar e Enviar via WhatsApp</span>
+            </button>
+        </div>
     </div>
 
     <style>
@@ -323,25 +418,393 @@
             font-weight: bold;
             letter-spacing: 1px;
         }
+        /* Estilos das Abas de Categorias */
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            margin: 10px 0 25px 0;
+            padding: 5px;
+            background-color: #f0f0f0;
+            border-radius: 30px;
+            position: sticky;
+            top: 15px;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px 10px;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .tab-btn.active {
+            background-color: var(--vermelho);
+            color: white;
+            box-shadow: 0 4px 12px rgba(204, 0, 0, 0.25);
+        }
+        .tab-btn:active {
+            transform: scale(0.95);
+        }
+        .tab-content {
+            display: none;
+            animation: tabFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes tabFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .galeria-promos-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
         .galeria-promos-grid {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: row;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
             gap: 16px;
-            justify-content: center;
+            padding: 8px 4px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            width: 100%;
+        }
+        .galeria-promos-grid::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
         }
         .galeria-promos-img {
-            width: 220px;
-            max-width: 90vw;
+            width: 280px;
+            max-width: 85vw;
+            flex-shrink: 0;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-            transition: box-shadow 0.2s, transform 0.2s;
-            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+            transition: box-shadow 0.3s, transform 0.3s;
+            scroll-snap-align: center;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-drag: none;
         }
         .galeria-promos-img:hover {
             box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-            transform: scale(1.04);
+            transform: scale(1.02);
+        }
+        .galeria-promos-img:active {
+            cursor: grabbing;
+        }
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            cursor: pointer;
+            z-index: 10;
+            color: var(--escuro);
+            transition: background 0.2s, transform 0.2s, color 0.2s;
+        }
+        .nav-btn:hover {
+            background: white;
+            color: var(--vermelho);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .nav-btn:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+        .prev-btn {
+            left: -10px;
+        }
+        .next-btn {
+            right: -10px;
+        }
+        @media (hover: none) and (pointer: coarse) {
+            .nav-btn {
+                display: none;
+            }
+        }
+        .galeria-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, width 0.3s, border-radius 0.3s;
+        }
+        .dot.active {
+            background-color: var(--vermelho);
+            transform: scale(1.1);
+            width: 18px;
+            border-radius: 4px;
         }
 
+        /* Responsividade Avançada para Smartphones */
+        @media (max-width: 480px) {
+            header {
+                padding: 20px 10px !important;
+                gap: 8px !important;
+            }
+            header img {
+                height: 70px !important;
+                width: 70px !important;
+            }
+            header h1 {
+                font-size: 26px !important;
+            }
+            header p {
+                font-size: 13px !important;
+            }
+            .container {
+                padding: 10px !important;
+            }
+            .category-tabs {
+                top: 10px;
+                margin-bottom: 20px;
+                padding: 3px;
+                gap: 4px;
+            }
+            .tab-btn {
+                padding: 10px 4px;
+                font-size: 13px;
+            }
+            .card {
+                flex-direction: column;
+                align-items: stretch !important;
+                gap: 12px;
+                padding: 16px 12px;
+                border-radius: 12px;
+            }
+            .card-info {
+                text-align: center;
+                margin-bottom: 4px;
+            }
+            .card-info h3 {
+                font-size: 17px;
+            }
+            .price {
+                font-size: 16px;
+                margin-top: 6px;
+            }
+            .qty-selector {
+                justify-content: center;
+                margin-top: 6px;
+                gap: 16px;
+                width: 100%;
+                border-top: 1px dashed rgba(0,0,0,0.08);
+                padding-top: 10px;
+            }
+            .qty-btn {
+                width: 34px;
+                height: 34px;
+            }
+            .produto-img {
+                width: 100% !important;
+                height: 180px !important;
+                margin-right: 0 !important;
+                margin-bottom: 6px;
+                border-radius: 12px;
+            }
+            .section-title {
+                font-size: 16px;
+                margin: 15px 0 10px 0;
+            }
+        }
+        /* Modal / Tela do Carrinho */
+        .carrinho-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--claro);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 -4px 30px rgba(0,0,0,0.15);
+        }
+        .carrinho-modal.open {
+            transform: translateY(0);
+        }
+        .carrinho-header {
+            background-color: var(--vermelho);
+            color: white;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            border-bottom: 4px solid var(--amarelo);
+        }
+        .carrinho-header h2 {
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 20px;
+            flex: 1;
+            text-align: center;
+            margin-right: 56px; /* Balance elements for centering */
+        }
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .back-btn:active {
+            opacity: 0.8;
+        }
+        .carrinho-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding-bottom: 100px;
+        }
+        .carrinho-summary-card, .carrinho-form-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .carrinho-summary-card h3, .carrinho-form-card h3 {
+            font-size: 15px;
+            color: var(--vermelho);
+            margin-bottom: 12px;
+            border-left: 3px solid var(--vermelho);
+            padding-left: 6px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .carrinho-itens-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .carrinho-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .carrinho-item-name {
+            font-weight: bold;
+            color: var(--escuro);
+        }
+        .carrinho-item-price {
+            color: var(--vermelho);
+            font-weight: bold;
+        }
+        .carrinho-total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            padding-top: 10px;
+            color: var(--escuro);
+            border-top: 2px solid #eee;
+        }
+        .carrinho-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 -3px 15px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: center;
+            z-index: 10;
+        }
+        .whatsapp-send-btn {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .whatsapp-send-btn:hover {
+            background-color: #1ebea5;
+            transform: scale(1.02);
+        }
+        .whatsapp-send-btn:active {
+            transform: scale(0.98);
+        }
+        .card.highlight-flash {
+            animation: highlightFlashAnim 1.5s ease;
+        }
+        @keyframes highlightFlashAnim {
+            0% {
+                background-color: white;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            }
+            15% {
+                background-color: #fff9e6; /* Destaque amarelo suave */
+                border-color: var(--amarelo);
+                box-shadow: 0 0 15px rgba(255, 204, 0, 0.6);
+                transform: scale(1.03);
+            }
+            100% {
+                background-color: white;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            }
+        }
     </style>
     <script>
         function changeQty(btn, change) {
@@ -362,6 +825,49 @@
             });
             document.getElementById('total-render').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
             return total;
+        }
+
+        function toggleCarrinho(open) {
+            const modal = document.getElementById('carrinho-modal');
+            if (open) {
+                // Verificar se há itens no carrinho
+                let total = 0;
+                let itensHtml = '';
+                let hasItems = false;
+
+                document.querySelectorAll('.card').forEach(card => {
+                    const qty = parseInt(card.querySelector('.qty-val').innerText);
+                    if (qty > 0) {
+                        hasItems = true;
+                        const name = card.getAttribute('data-name');
+                        const price = parseFloat(card.getAttribute('data-price'));
+                        const subtotal = price * qty;
+                        total += subtotal;
+                        
+                        itensHtml += `
+                            <div class="carrinho-item-row">
+                                <div class="carrinho-item-name">${qty}x ${name}</div>
+                                <div class="carrinho-item-price">R$ ${subtotal.toFixed(2).replace('.', ',')}</div>
+                            </div>
+                        `;
+                    }
+                });
+
+                if (!hasItems) {
+                    alert('Por favor, selecione pelo menos um item para ver o carrinho.');
+                    return;
+                }
+
+                // Inserir os itens na lista
+                document.getElementById('carrinho-itens-lista').innerHTML = itensHtml;
+                document.getElementById('carrinho-total-val').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden'; // impede rolagem da página principal
+            } else {
+                modal.classList.remove('open');
+                document.body.style.overflow = ''; // restaura rolagem
+            }
         }
 
         function enviarPedido() {
@@ -400,6 +906,174 @@
             const url = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensagem)}`;
             window.open(url, '_blank');
         }
+
+        // Lógica do Carrossel de Cardápios & Promoções
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('galeria-grid');
+            const prevBtn = document.getElementById('galeria-prev-btn');
+            const nextBtn = document.getElementById('galeria-next-btn');
+            const dotsContainer = document.getElementById('galeria-dots');
+            const dots = dotsContainer.querySelectorAll('.dot');
+            const imgs = grid.querySelectorAll('.galeria-promos-img');
+
+            if (!grid || imgs.length === 0) return;
+
+            // Função para obter o tamanho de rolagem de um item (imagem + gap)
+            function getItemScrollWidth() {
+                const firstImg = imgs[0];
+                const style = window.getComputedStyle(grid);
+                const gap = parseFloat(style.gap) || 16;
+                return firstImg.getBoundingClientRect().width + gap;
+            }
+
+            // Atualiza os dots baseado na rolagem ativa
+            function updateDots() {
+                const scrollLeft = grid.scrollLeft;
+                const itemWidth = getItemScrollWidth();
+                const activeIndex = Math.round(scrollLeft / itemWidth);
+                
+                dots.forEach((dot, idx) => {
+                    if (idx === activeIndex) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+
+            // Evento de Scroll para atualizar os dots
+            let scrollTimeout;
+            grid.addEventListener('scroll', () => {
+                // Throttle/debounce leve para performance
+                if (scrollTimeout) cancelAnimationFrame(scrollTimeout);
+                scrollTimeout = requestAnimationFrame(updateDots);
+            });
+
+            // Clique nos botões de navegação
+            prevBtn.addEventListener('click', () => {
+                grid.scrollBy({
+                    left: -getItemScrollWidth(),
+                    behavior: 'smooth'
+                });
+            });
+
+            nextBtn.addEventListener('click', () => {
+                grid.scrollBy({
+                    left: getItemScrollWidth(),
+                    behavior: 'smooth'
+                });
+            });
+
+            // Clique nos dots para navegar
+            dots.forEach(dot => {
+                dot.addEventListener('click', (e) => {
+                    const idx = parseInt(e.target.getAttribute('data-index'));
+                    const itemWidth = getItemScrollWidth();
+                    grid.scrollTo({
+                        left: idx * itemWidth,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Suporte para Arrastar com o Mouse (Desktop Drag-to-Scroll)
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            grid.addEventListener('mousedown', (e) => {
+                isDown = true;
+                grid.style.scrollBehavior = 'auto'; // desativa smooth temporariamente para o arraste ser direto
+                startX = e.pageX - grid.offsetLeft;
+                scrollLeft = grid.scrollLeft;
+            });
+
+            grid.addEventListener('mouseleave', () => {
+                if (isDown) {
+                    isDown = false;
+                    grid.style.scrollBehavior = 'smooth';
+                }
+            });
+
+            grid.addEventListener('mouseup', () => {
+                if (isDown) {
+                    isDown = false;
+                    grid.style.scrollBehavior = 'smooth';
+                    // Snap suave pós arraste
+                    const itemWidth = getItemScrollWidth();
+                    const targetScroll = Math.round(grid.scrollLeft / itemWidth) * itemWidth;
+                    grid.scrollTo({
+                        left: targetScroll,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+
+            grid.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - grid.offsetLeft;
+                const walk = (x - startX) * 1.5; // multiplicador de velocidade
+                grid.scrollLeft = scrollLeft - walk;
+            });
+
+            // Previne comportamento padrão de arrastar imagens nativo do navegador
+            imgs.forEach(img => {
+                img.addEventListener('dragstart', (e) => e.preventDefault());
+            });
+
+            // Lógica de Abas de Categorias
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetId = tab.getAttribute('data-target');
+
+                    // Remove active de todas as abas e conteúdos
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+
+                    // Adiciona active na aba e conteúdo selecionado
+                    tab.classList.add('active');
+                    const targetContent = document.getElementById(targetId);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                });
+            });
+
+            // Lógica de Vinculação do Carrossel com a Aba de Combos
+            imgs.forEach(img => {
+                img.addEventListener('click', () => {
+                    const targetId = img.getAttribute('data-target-id');
+                    if (targetId) {
+                        // 1. Alterna para a aba "Combos"
+                        const combosTabBtn = document.querySelector('[data-target="tab-combos"]');
+                        if (combosTabBtn) {
+                            combosTabBtn.click();
+                        }
+
+                        // 2. Rola suavemente até o card correspondente
+                        const targetCard = document.getElementById(targetId);
+                        if (targetCard) {
+                            setTimeout(() => {
+                                targetCard.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'center'
+                                });
+
+                                // 3. Aplica animação de piscar com destaque
+                                targetCard.classList.add('highlight-flash');
+                                setTimeout(() => {
+                                    targetCard.classList.remove('highlight-flash');
+                                }, 1500);
+                            }, 150); // Delay curto para esperar o tab transition completar
+                        }
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
